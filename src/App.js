@@ -736,7 +736,7 @@ const Contact = () => {
 
               try {
                 const response = await fetch(
-                  'https://script.google.com/macros/s/AKfycbxUCya3UFUMSEoBFneoOsZtLnzmjAH83xyYt9NsvjRRPtyfXoMUlUz_yqHviAdctIvgTA/exec',
+                  'https://corsproxy.io/?key=bbbffb5c&url=https://script.google.com/macros/s/AKfycbxUCya3UFUMSEoBFneoOsZtLnzmjAH83xyYt9NsvjRRPtyfXoMUlUz_yqHviAdctIvgTA/exec',
                   {
                     method: 'POST',
                     headers: {
