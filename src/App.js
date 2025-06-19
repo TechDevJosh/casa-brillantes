@@ -736,28 +736,27 @@ const Contact = () => {
 
               try {
                 const response = await fetch(
-                  'https://script.google.com/macros/s/AKfycbwZGXGgzhZ-Uc5qtMkbLV6ZVGdyHcFkN6ONuCNW7_SPjoTFuLXOSMwQFAs6VROmWzEZbQ/exec',
+                  'https://script.google.com/macros/s/AKfycbxUCya3UFUMSEoBFneoOsZtLnzmjAH83xyYt9NsvjRRPtyfXoMUlUz_yqHviAdctIvgTA/exec',
                   {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(data),
                   }
                 );
 
-                const text = await response.text();
-                console.log('Server response:', text);
-
-                const result = JSON.parse(text);
+                const result = await response.json();
                 if (result.result === 'success') {
-                  alert('Inquiry submitted successfully!');
+                  alert('✅ Inquiry submitted successfully!');
                   form.reset();
                 } else {
-                  alert('Form submission failed.');
+                  alert('⚠️ Something went wrong. Please try again later.');
                 }
               } catch (err) {
                 console.error('Submission error:', err);
                 alert(
-                  'Error sending inquiry. Please check your internet or try again later.'
+                  '❌ Error sending inquiry. Please check your internet connection or try again later.'
                 );
               }
             }}
