@@ -719,7 +719,49 @@ const Contact = () => {
           <h3 className="text-2xl font-bold text-stone-800 mb-4">
             Send an Inquiry
           </h3>
-          <form action="#" method="POST" className="space-y-6">
+          <form
+            className="space-y-6"
+            onSubmit={async (e) => {
+              e.preventDefault();
+
+              const form = e.target;
+              const data = {
+                name: form.name.value,
+                email: form.email.value,
+                checkin: form.checkin.value,
+                checkout: form.checkout.value,
+                numberofguests: form.guests.value,
+                message: form.message.value,
+              };
+
+              try {
+                const response = await fetch(
+                  'https://script.google.com/macros/s/AKfycbwZGXGgzhZ-Uc5qtMkbLV6ZVGdyHcFkN6ONuCNW7_SPjoTFuLXOSMwQFAs6VROmWzEZbQ/exec',
+                  {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                  }
+                );
+
+                const text = await response.text();
+                console.log('Server response:', text);
+
+                const result = JSON.parse(text);
+                if (result.result === 'success') {
+                  alert('Inquiry submitted successfully!');
+                  form.reset();
+                } else {
+                  alert('Form submission failed.');
+                }
+              } catch (err) {
+                console.error('Submission error:', err);
+                alert(
+                  'Error sending inquiry. Please check your internet or try again later.'
+                );
+              }
+            }}
+          >
             <div>
               <label
                 htmlFor="name"
